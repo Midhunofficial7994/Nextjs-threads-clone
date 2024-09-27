@@ -26,7 +26,7 @@ const LoginPage: React.FC = () => {
       localStorage.setItem('userId', user._id);
       router.push('/main');
     } else {
-      router.push('/signup');
+      router.push('/signup');                 
     }
   };
 
@@ -58,7 +58,7 @@ const LoginPage: React.FC = () => {
             type="password"
             placeholder="Password"
             value={password}
-            
+
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-1.5 border border-gray-800 rounded-lg bg-gray-800 text-white text-sm focus:outline-none"
           />
