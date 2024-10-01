@@ -11,7 +11,6 @@ import LikeButton from '../../../components/likeButton';
 import Replay from '../../../components/reply/reply';
 import ReplyButton from '../../../components/replyButton';
 import RepostButton from '../../../components/repostButton';
-import Repost from '../../../components/repost/repost';
 import TimeAgo from '../../../components/TimeAgo';
 
 const HomePage: React.FC = () => {
@@ -99,8 +98,9 @@ const HomePage: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
-            <h1 className="text-3xl font-bold mb-4">For you</h1>
-            <div className="bg-gray-800 rounded-lg p-4 w-full max-w-lg">
+           <div  className="text-1xl font-bold mt-12  mb-4 ">For you</div>
+            {/* Increased max-width here */}
+            <div className="bg-[#181818] rounded-3xl p-4 w-full max-w-xl"> {/* Change max-w-lg to max-w-xl */}
                 <div className="flex justify-between items-center mb-4 border-b border-gray-600 pb-2">
                     <div className="flex items-center">
                         <ProfileImage
@@ -110,7 +110,7 @@ const HomePage: React.FC = () => {
                         />
                         <span className="ml-2">What's new?</span>
                     </div>
-                    <button className="bg-gray-700 text-white rounded px-4 py-2" onClick={openModal}>
+                    <button className="bg-[#181818] text-white rounded px-4 py-2" onClick={openModal}>
                         Post
                     </button>
                 </div>
@@ -131,7 +131,7 @@ const HomePage: React.FC = () => {
                         placeholder="Write a post"
                         value={postContent}
                         onChange={handlePostChange}
-                        className="w-full h-24 p-2 bg-gray-700 text-white rounded mb-2"
+                        className="w-full h-24 p-2 bg-gray-800 text-white rounded mb-2"
                     />
                     {preview && (
                         <img src={preview} alt="Preview" className="w-full h-auto mb-2 rounded" />
@@ -158,7 +158,7 @@ const HomePage: React.FC = () => {
 
                 <div className="flex flex-col mt-4">
                     {posts.map((post) => (
-                        <div key={post._id} className="bg-gray-700 rounded-lg p-4 mb-4">
+                        <div key={post._id} className=" bg-blackrounded-lg p-4 mb-4 border-b border-gray-600">
                             <div className="flex items-center mb-2">
                                 <img
                                     src={post.postById?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
@@ -180,22 +180,23 @@ const HomePage: React.FC = () => {
                                     likedUsers={post.likes}
                                 />
                                <Replay
-                isOpen={isCommentOpen}
-                onClose={closeComment}
-                postId={postId}
-                userProfilePic={userProfilePic}
-                userId={userId}
-                username={username}
-            >
-                <div className="flex items-center mb-4">
-                    <img
-                        src={currentUser?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
-                        alt="profile"
-                        className="w-12 h-12 rounded-full mr-2"
-                    />
-                    <p className="text-white text-lg">{username}</p>
-                </div>
-            </Replay>
+                                    isOpen={isCommentOpen}
+                                    onClose={closeComment}
+                                    postId={postId}
+                                    userProfilePic={userProfilePic}
+                                    userId={userId}
+                                    username={username}
+                                >
+                                    <div className="flex items-center mb-4">
+                                        <img
+                                            src={currentUser?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
+                                            alt="profile"
+                                            className="w-12 h-12 rounded-full mr-2"
+                                        />
+                                        <p className="text-white text-lg">{username}</p>
+                                    </div>
+                                </Replay>
+                                {/* <ReplyButton replyCount={5} /> */}
                                 <RepostButton repostCount={post.reposts.length} />
                             </div>
                         </div>

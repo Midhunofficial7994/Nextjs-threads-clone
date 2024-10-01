@@ -6,7 +6,7 @@ import { Icons } from '../../ui/Icons/users';
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="bg-black w-16 h-screen flex flex-col items-center justify-between">
+    <nav className="bg-black w-16 h-screen fixed flex flex-col items-center justify-between">
       {/* Logo */}
       <div className="mt-8 mb-8">
         <Link href="/">

@@ -40,7 +40,7 @@ const LoginPage: React.FC = () => {
           layout="fill"
           objectFit="cover"
           className="w-full h-full"
-        />
+        />     
       </div>
 
       {/* Login Form */}
