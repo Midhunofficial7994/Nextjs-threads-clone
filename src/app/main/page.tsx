@@ -8,11 +8,12 @@ import { addNewPost } from '../../../store/reducers/postsSlice';
 import ProfileImage from '../../../components/ProfileImage';
 import { Icons } from '../../../ui/Icons/users';
 import LikeButton from '../../../components/likeButton';
-import Replay from '../../../components/reply/reply';
-import ReplyButton from '../../../components/replyButton';
+import Reply from '../../../components/reply/reply';
 import RepostButton from '../../../components/repostButton';
 import TimeAgo from '../../../components/TimeAgo';
-
+import ReplyButton from '../../../components/replyButton';
+import Repost from '../../../components/repost/repost';
+import PostBtn from '../../../components/postbutton/postBtn';
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
     const { users } = useAppSelector((state) => state.users);
@@ -28,6 +29,7 @@ const HomePage: React.FC = () => {
     const [postId, setPostId] = useState<string>('');
     const [userId, setUserId] = useState<string>('');
     const [userProfilePic, setProfilePic] = useState<string>('');
+
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -97,10 +99,11 @@ const HomePage: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
-           <div  className="text-1xl font-bold mt-12  mb-4 ">For you</div>
-            {/* Increased max-width here */}
-            <div className="bg-[#181818] rounded-3xl p-4 w-full max-w-xl"> {/* Change max-w-lg to max-w-xl */}
+        <div className="flex flex-col items-center justify-center min-h-screen  text-white">
+            <div className='sticky top-0 bg-black w-full text-center py-3 z-50'>
+                <div className="text-1xl font-bold">For you</div>
+            </div>
+            <div className="bg-[#181818] rounded-3xl p-4 w-full max-w-xl">
                 <div className="flex justify-between items-center mb-4 border-b border-gray-600 pb-2">
                     <div className="flex items-center">
                         <ProfileImage
@@ -110,12 +113,9 @@ const HomePage: React.FC = () => {
                         />
                         <span className="ml-2">What's new?</span>
                     </div>
-                    <button className="bg-[#181818] text-white rounded px-4 py-2" onClick={openModal}>
-                        Post
-                    </button>
+                   <PostBtn onClick={openModal}/>
                 </div>
 
-                {/* New thread modal */}
                 <Threads isOpen={isModalOpen} onClose={closeModal}>
                     <div className="flex items-center mb-4">
                         <img
@@ -156,9 +156,27 @@ const HomePage: React.FC = () => {
                     </button>
                 </Threads>
 
+                <Reply
+                    isOpen={isCommentOpen}
+                    onClose={closeComment}
+                    postId={postId}
+                    userProfilePic={userProfilePic}
+                    userId={userId}
+                    username={username}
+                >
+                    <div className="flex items-center mb-4">
+                        <img
+                            src={currentUser?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
+                            alt="profile"
+                            className="w-12 h-12 rounded-full mr-2"
+                        />
+                        <p className="text-white text-lg">{username}</p>
+                    </div>
+                </Reply>
+
                 <div className="flex flex-col mt-4">
                     {posts.map((post) => (
-                        <div key={post._id} className=" bg-blackrounded-lg p-4 mb-4 border-b border-gray-600">
+                        <div key={post._id} className="bg-[181818] rounded-lg p-4 mb-4 border-b border-gray-600">
                             <div className="flex items-center mb-2">
                                 <img
                                     src={post.postById?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
@@ -173,32 +191,32 @@ const HomePage: React.FC = () => {
                             <p className="mb-2">{post.text}</p>
                             {post.image && <img src={post.image} alt="post" className="rounded mb-2" />}
                             <div className="flex justify-between">
-                                <LikeButton
-                                    initialLike={post.likes.length}
-                                    postId={post._id}
-                                    userId={currentUser?._id}
-                                    likedUsers={post.likes}
-                                />
-                               <Replay
-                                    isOpen={isCommentOpen}
-                                    onClose={closeComment}
-                                    postId={postId}
-                                    userProfilePic={userProfilePic}
-                                    userId={userId}
-                                    username={username}
-                                >
-                                    <div className="flex items-center mb-4">
-                                        <img
-                                            src={currentUser?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
-                                            alt="profile"
-                                            className="w-12 h-12 rounded-full mr-2"
-                                        />
-                                        <p className="text-white text-lg">{username}</p>
-                                    </div>
-                                </Replay>
-                                {/* <ReplyButton replyCount={5} /> */}
-                                <RepostButton repostCount={post.reposts.length} />
+                                {currentUser ? (
+                                    <LikeButton
+                                        initialLike={post.likes.length}
+                                        postId={post._id}
+                                        userId={currentUser?._id}
+                                        likedUsers={post.likes}
+                                    />
+                                ) : (
+                                    <p>Please Login to Like the Post</p>
+                                )}
+                                <div onClick={() => { openComment(); setPostId(post._id); }}>
+                                    <ReplyButton replyCount={post.replies.length} />
+                                </div>
+                                <div onClick={() => { setPostId(post._id); openRepost(); }}>
+                                    <RepostButton repostCount={post.reposts.length} />
+                                </div>
                             </div>
+
+                            <Repost
+                                isOpen={isRepostOpen}
+                                onClose={closeRepost}
+                                postId={postId}
+                                userId={userId}
+                                userProfilePic={userProfilePic}
+                                username={username}
+                            />
                         </div>
                     ))}
                 </div>

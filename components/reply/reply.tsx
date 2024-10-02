@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState, ReactNode } from 'react';
 import axios from 'axios';
+import ProfileImage from '../ProfileImage';
 
 interface ReplyProps {
     isOpen: boolean;
@@ -14,10 +15,9 @@ interface ReplyProps {
 
 const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId, userProfilePic, username }) => {
     const [post, setPost] = useState<any>(null);
-    const [comment, setComment] = useState<string>('');  // State for the comment
-    const [loading, setLoading] = useState<boolean>(false);  // State for loading
+    const [comment, setComment] = useState<string>('');  
+    const [loading, setLoading] = useState<boolean>(false);  
 
-    // Fetch the post when the modal is opened
     useEffect(() => {
         if (isOpen) {
             const fetchPost = async () => {
@@ -34,9 +34,8 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
         }
     }, [isOpen, postId]);
 
-    // Handle reply submission
     const handleReplySubmit = async () => {
-        if (!comment.trim()) return;  // Avoid submitting an empty comment
+        if (!comment.trim()) return;  
 
         const reply = {
             text: comment,
@@ -46,55 +45,54 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
         };
 
         try {
-            setLoading(true);  // Set loading state to true while submitting
+            setLoading(true);  
             const response = await axios.post(
                 `https://social-media-rest-apis.onrender.com/api/posts/${postId}/reply`, 
                 reply
             );
             console.log("Replied to post:", response.data);
-            setComment('');  // Clear comment input after successful submission
+            setComment('');  
         } catch (error) {
             console.error("Failed to reply to post:", error);
         } finally {
-            setLoading(false);  // Reset loading state after submission
+            setLoading(false);  
         }
     };
 
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 w-full h-full bg-black bg-opacity-30 flex justify-center items-center z-50">
-            <div className="bg-[#181818] rounded-lg w-full max-w-2xl p-6 shadow-lg relative animate-fadeIn">
+        <div className="top-0 fixed   inset-0 z-50 flex justify-center items-start bg-transparent">
+           
+            <div className="bg-black   -mt-36 rounded-lg p-4 shadow-lg relative top-2 w-full max-w-xs md:max-w-sm lg:max-w-md animate-fadeIn">
                 <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-4">
                     <button className="text-2xl text-gray-500 hover:text-gray-900 transition-colors" onClick={onClose}>
                         &times;
                     </button>
                 </div>
 
-                {/* Display the fetched post content */}
                 {post && (
                     <div className="mb-4">
                         <div className="flex items-center mb-4">
-                            {/* Display profile picture */}
                             {post.postById.profilePic ? (
                                 <img 
                                     src={post.postById.profilePic} 
                                     alt={`${post.postById.username}'s profile`} 
-                                    className="w-10 h-10 rounded-full mr-2 object-cover" 
+                                    className="w-8 h-8 rounded-full mr-2 object-cover" 
                                 />
                             ) : (
                                 <img
                                     src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
                                     alt="profile"
-                                    className="w-10 h-10 rounded-full mr-2 object-cover"
+                                    className="w-8 h-8 rounded-full mr-2 object-cover"
                                 />
                             )}
-                            <h1 className="text-white">{post.postById.username}</h1>
+                            <h1 className="text-white text-sm">{post.postById.username}</h1>
                         </div>
 
-                        <h2 className="text-white mb-2">{post.text}</h2>
+                        <h2 className="text-white mb-2 text-sm">{post.text}</h2>
                         {post.image && (
-                            <img src={post.image} alt="Post" className="w-1/2 h-1/2 ml-12 object-cover rounded-lg" />
+                            <img src={post.image} alt="Post" className="w-full h-auto object-cover rounded-lg" />
                         )}
                     </div>
                 )}
@@ -105,19 +103,40 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                     <textarea
                         placeholder="Add your comment..."
                         value={comment}
-                        onChange={(e) => setComment(e.target.value)}  // Update comment state
-                        className="w-full h-24 p-2 border border-gray-400 rounded-lg resize-none text-black"
+                        onChange={(e) => setComment(e.target.value)}  
+                        className="w-full h-16 p-2 border border-gray-400 rounded-lg resize-none text-black"
                     />
                 </div>
 
                 <div className="flex justify-end">
                     <button 
                         className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-                        onClick={handleReplySubmit}  // Trigger reply submission
-                        disabled={loading}  // Disable button while loading
+                        onClick={handleReplySubmit}  
+                        disabled={loading}  
                     >
-                        {loading ? 'Posting...' : 'Post'}  {/* Show loading state */}
+                        {loading ? 'Posting...' : 'Post'}  
                     </button>
+                </div>
+
+                {/* Replies Section */}
+                <div className="mt-4">
+                    {post?.replies?.length > 0 ? (
+                        [...post.replies].reverse().map((reply: any, index: number) => (
+                            <div key={index} className="flex items-start mb-2">
+                                <ProfileImage 
+                                    profilePic={reply.userProfilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"} 
+                                    altText={reply.username} 
+                                    className="w-8 h-8 rounded-full mr-2" 
+                                />
+                                <div className="bg-gray-800 p-2 rounded-lg text-white">
+                                    <p className="font-bold">{reply.username}</p>
+                                    <p>{reply.text}</p>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="text-gray-400">No replies yet.</p>
+                    )}
                 </div>
             </div>
         </div>
