@@ -62,7 +62,7 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
     if (!isOpen) return null;
 
     return (
-        <div className="top-0 fixed   inset-0 z-50 flex justify-center items-start bg-transparent">
+        <div className="top-0   inset-0 z-50 flex justify-center items-start bg-transparent">
            
             <div className="bg-black   -mt-36 rounded-lg p-4 shadow-lg relative top-2 w-full max-w-xs md:max-w-sm lg:max-w-md animate-fadeIn">
                 <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-4">

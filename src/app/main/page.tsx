@@ -103,7 +103,7 @@ const HomePage: React.FC = () => {
             <div className='sticky top-0 bg-black w-full text-center py-3 z-50'>
                 <div className="text-1xl font-bold">For you</div>
             </div>
-            <div className="bg-[#181818] rounded-3xl p-4 w-full max-w-xl">
+            <div className="bg-[#181818] sticky rounded-3xl p-4 w-full max-w-xl">
                 <div className="flex justify-between items-center mb-4 border-b border-gray-600 pb-2">
                     <div className="flex items-center">
                         <ProfileImage

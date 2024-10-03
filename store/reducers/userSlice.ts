@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosInstance from "../../axios/axiosInstance";
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
-    const response = await axios.get('https://social-media-rest-apis.onrender.com/api/users/');
+    const response = await axiosInstance.get('/users/');
     return response.data.users;
 });
 

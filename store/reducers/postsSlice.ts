@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
-
+import axiosInstance from "../../axios/axiosInstance";
 
 interface User {
     _id: string;
@@ -35,7 +34,7 @@ const initialState: PostsState = {
 };
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-    const response = await axios.get('https://social-media-rest-apis.onrender.com/api/posts');
+    const response = await axiosInstance.get('/posts');
     return response.data.posts;
 });
 
@@ -46,7 +45,7 @@ export const addNewPost = createAsyncThunk(
     async (newPost: { userId: string; text: string; image: string }, { rejectWithValue }) => {
         try {
             console.log('Sending new post data:', newPost); // Log before the request
-            const response = await axios.post('https://social-media-rest-apis.onrender.com/api/posts', newPost);
+            const response = await axiosInstance.post('/posts', newPost);
             console.log("Received response:", response); // Log the whole response
             console.log("Response data:", response.data); // Log response data
             return response.data;

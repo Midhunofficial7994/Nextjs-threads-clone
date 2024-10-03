@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+// import axios from "axios";
+import axiosInstance from "../../axios/axiosInstance";
 
 interface SignupState {
     name: string;
@@ -30,7 +31,7 @@ export const signupUser = createAsyncThunk(
     'signup/signupUser',
     async (userData: { name: string; username: string; email: string; password: string; phone: string }, { rejectWithValue }) => {
         try {
-            const response = await axios.post('https://social-media-rest-apis.onrender.com/api/users/signup', userData);
+            const response = await axiosInstance.post('/users/signup', userData);
             console.log(response.data);
             return response.data;
         } catch (error: any) {
