@@ -193,8 +193,7 @@ const HomePage: React.FC = () => {
                             <div className="flex justify-between">
                                 {currentUser ? (
                                     <LikeButton
-                                        initialLike={post.likes.length}
-                                        postId={post._id}
+                                        initialLike={post.likes.length}                                        postId={post._id}
                                         userId={currentUser?._id}
                                         likedUsers={post.likes}
                                     />
