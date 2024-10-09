@@ -60,8 +60,8 @@ const SearchPage: React.FC = () => {
                         /> */}
 
             {/* Search Bar */}
-            <div className="bg-[#181818] rounded-3xl p-4 w-full max-w-xl">
-                <div className="flex  justify-between items-center bg-gray-800 p-2 rounded-full mb-4 shadow-md">
+            <div className="bg-[#181818] sticky rounded-3xl p-4 w-full max-w-xl">
+                <div className="flex  justify-between items-center bg-gray-800 p-2 rounded-full mb-4 shadow-md max-w-xl">
                     <Icons.search />
                     <input
                         type="text"
@@ -73,7 +73,7 @@ const SearchPage: React.FC = () => {
                 </div>
 
                 {/* User Search Results */}
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 max-w-xl">
                     {filteredUsers.length > 0 ? (
                         filteredUsers.map((user) => (
                             <div key={user._id} className="bg-[#181818] rounded-lg p-4 shadow-md flex items-center justify-between">

@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "../../axios/axiosInstance";
-
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
 interface User {
     _id: string;
     username: string;
@@ -16,43 +16,30 @@ interface Post {
     likes: string[];
     replies: string[];
     createdOn: string;
-
-
     reposts: string[];
 }
-
 interface PostsState {
     posts: Post[];
     status: "idle" | "loading" | "succeeded" | "failed";
     error: string | null;
 }
-
 const initialState: PostsState = {
     posts: [],
     status: "idle",
     error: null,
 };
-
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
     const response = await axiosInstance.get('/posts');
     return response.data.posts;
 });
-
-
 export const addNewPost = createAsyncThunk(
-    
     "posts/addNewPost",
     async (newPost: { userId: string; text: string; image: string }, { rejectWithValue }) => {
         try {
-            console.log('Sending new post data:', newPost); // Log before the request
             const response = await axiosInstance.post('/posts', newPost);
-            console.log("Received response:", response); // Log the whole response
-            console.log("Response data:", response.data); // Log response data
             return response.data;
         } catch (error: any) {
-            console.error('Error in addNewPost:', error); // Log the error
             if (error.response) {
-                console.error('Error response from API:', error.response);
                 return rejectWithValue(error.response.data);
             } else {
                 return rejectWithValue({ message: 'Failed to add new post' });
@@ -60,9 +47,6 @@ export const addNewPost = createAsyncThunk(
         }
     }
 );
-
-
-
 const postsSlice = createSlice({
     name: "posts",
     initialState,

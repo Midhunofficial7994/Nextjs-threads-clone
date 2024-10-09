@@ -88,14 +88,14 @@ const HomePage: React.FC = () => {
             alert('User not found! Please log in.');
             return;
         }
-        const newPost = {
-            userId: currentUser._id,
-            text: postContent,
-            image: postImage,
-        };
+        // const newPost = {
+        //     userId: currentUser._id,
+        //     text: postContent,
+        //     image: postImage,
+        // };
 
-        dispatch(addNewPost(newPost));
-        setPostContent('');
+        // dispatch(addNewPost(newPost));
+        // setPostContent('');
     };
 
     return (
@@ -125,35 +125,13 @@ const HomePage: React.FC = () => {
                         />
                         <p className="ml-2 text-lg">{username}</p>
                     </div>
-                    <textarea
-                        name="thread"
-                        id="thread"
-                        placeholder="Write a post"
-                        value={postContent}
-                        onChange={handlePostChange}
-                        className="w-full h-24 p-2 bg-gray-800 text-white rounded mb-2"
-                    />
-                    {preview && (
-                        <img src={preview} alt="Preview" className="w-full h-auto mb-2 rounded" />
-                    )}
-                    <div className="flex items-center mb-4">
-                        <input
-                            type="file"
-                            id="file-upload"
-                            accept="image/*"
-                            onChange={handleImageChange}
-                            className="hidden"
-                        />
-                        <label htmlFor="file-upload" className="cursor-pointer">
-                            <Icons.image />
-                        </label>
-                    </div>
-                    <button
+                 
+                    {/* <button
                         className="bg-blue-600 text-white rounded px-4 py-2"
                         onClick={handlePostSubmit}
                     >
                         Post
-                    </button>
+                    </button> */}
                 </Threads>
 
                 <Reply
@@ -193,7 +171,8 @@ const HomePage: React.FC = () => {
                             <div className="flex justify-between">
                                 {currentUser ? (
                                     <LikeButton
-                                        initialLike={post.likes.length}                                        postId={post._id}
+                                        initialLike={post.likes.length} 
+                                        postId={post._id}
                                         userId={currentUser?._id}
                                         likedUsers={post.likes}
                                     />

@@ -8,7 +8,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         <Navbar />
       </div>
       {/* <div className="w-[640px] h-screen bg-white ext-center rounded-lg"> */}
-        {children}
+        {children}               
       {/* </div> */}
     </div>
   );
