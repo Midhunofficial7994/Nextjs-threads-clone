@@ -186,7 +186,7 @@ const HomePage: React.FC = () => {
                                     <RepostButton repostCount={post.reposts.length} />
                                 </div>
                             </div>
-
+   
                             <Repost
                                 isOpen={isRepostOpen}
                                 onClose={closeRepost}
