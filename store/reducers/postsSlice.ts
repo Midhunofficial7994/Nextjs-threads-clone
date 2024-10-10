@@ -41,7 +41,7 @@ export const addNewPost = createAsyncThunk(
         } catch (error: any) {
             if (error.response) {
                 return rejectWithValue(error.response.data);
-            } else {
+            } else {                       
                 return rejectWithValue({ message: 'Failed to add new post' });
             }
         }

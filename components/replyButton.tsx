@@ -1,5 +1,5 @@
 import { Icons } from '../ui/Icons/users'
-import React from 'react'
+import React  from 'react'
 
  interface replyButtonProps {
   replyCount: number
@@ -10,7 +10,7 @@ const ReplyButton: React.FC<replyButtonProps> = ({replyCount}) => {
     <button >
       <span>{replyCount}</span>
       <Icons.reply />
-    </button>
+    </button>   
   )
 }
 
