@@ -8,11 +8,11 @@ import axios from 'axios';
 import { Icons } from '../../../../ui/Icons/users';
 
 const ProfilePage: React.FC = () => {
-    const dispatch = useAppDispatch(); 
+    const dispatch = useAppDispatch();      
     const [posts, setPosts] = useState<any>([]);
 
     const fetchPosts = async () => {
-        try {
+        try {     
             const userId = localStorage.getItem('userId');
             if (userId) {
                 const response = await axios.get(

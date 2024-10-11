@@ -8,12 +8,13 @@ interface ReplyProps {
     onClose: () => void;
     children: ReactNode;
     postId: string;
+
     userId: string;
     userProfilePic: string;
     username: string;
 }
 
-const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId, userProfilePic, username }) => {
+const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId, userProfilePic,username }) => {
     const [post, setPost] = useState<any>(null);
     const [comment, setComment] = useState<string>('');  
     const [loading, setLoading] = useState<boolean>(false);  

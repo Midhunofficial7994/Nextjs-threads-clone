@@ -13,7 +13,7 @@ const Profile = () => {
     const [name, setName] = useState<string>('');
     const [username, setUserName] = useState<string>('');
     const [profilePic, setProfilePic] = useState<string>('');
-    const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false); // State for modal
+    const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false); 
 
     useEffect(() => {
         dispatch(fetchUser());
