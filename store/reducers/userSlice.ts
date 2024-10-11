@@ -1,61 +1,92 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { error, log } from "console";
 import axiosInstance from "../../axios/axiosInstance";
+import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
 
-export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
-    const response = await axiosInstance.get('/users/');
+
+export const fetchUser =createAsyncThunk("user/fetchUser",async()=>{
+    const response= await axiosInstance.get('/users');
+    return response.data.users;
+})
+export const fetchUserData=createAsyncThunk('user/fetchUserData',async(userId:string)=>{
+    const response= await axiosInstance.get(`/users/${userId}`);
     return response.data.users;
 });
 
+export const loginUser= createAsyncThunk(
+    'login/loginUser',
+    async (userData:{username :string;password:string},{rejectWithValue})=>{
+        try{
+            console.log(userData)
+            const response= await axiosInstance('/users/login',userData);
+            return response.data;
+        }
+    }catch error()
+)
+
 interface User {
-    _id: string;
-    name: string;
-
-    followers: string[];
-
-    following: string[];
-    email: string;
-    username: string;
+    id : string;
+    name:string;
+    followers:string[];
+    following: string [];
+    email:string;
     profilePic: string;
 }
 
 interface UserState {
-    users: User[];
-    status: "idle" | "loading" | "succeeded" | "failed";
-    error: string | null;
+    users:User[];
+    userData:User[];
+    posts:any[];
+    status:"idle"   |   'loading' |  'succeeded' | 'failed';
+    error : string | null;
 }
 
-const initialState: UserState = {
-    users: [],
-    status: "idle",
-    error: null,
+const initialState: UserState={
+    users:[],
+   userData:[],
+   posts:[],
+   status:"idle",
+   error:null,
+
 };
-
-const userSlice = createSlice({
-    name: "users",
+ const userSlice = createSlice({
+    name:'users',
     initialState,
-    reducers: {},
- 
-    extraReducers: (builder) => {
-        builder
-            .addCase(fetchUser.pending, (state) => {
-                // Set the status to "loading" when the thunk is pending
-                // This indicates that the thunk is still running and the state is being updated in the background
-                state.status = "loading";
-            })
-            .addCase(fetchUser.fulfilled, (state, action) => {
-                // Set the status to "succeeded" and update the users list when the thunk is fulfilled
-                // This indicates that the thunk has completed successfully and the state is now up to date
-                state.status = "succeeded";
-                state.users = action.payload;
-            })
-            .addCase(fetchUser.rejected, (state, action) => {
-                // Set the status to "failed" and set an error message when the thunk is rejected
-                // This indicates that the thunk has failed and the state is now in an error state
-                state.status = "failed";
-                state.error = action.error?.message ?? null;
-            });
-    },
+    reducers:{},
+    extraReducers:(addingCase)=>{
+       
+        addingCase.addCase(fetchUser.pending,(state)=>{
+            state.status='loading';
+        
+        })
 
-});
+
+        .addCase (fetchUser.fulfilled,(state,action)=>{
+            state.status='succeeded';
+            state.users=action.payload
+        })
+
+        .addCase (fetchUser.rejected,(state,action)=>{
+            state.status='failed';
+            state.error = action.error?.message??null;
+        });
+
+        addingCase.addCase(fetchUserData.pending,(state)=>{
+                                 state.status='loading';
+
+        })  
+
+        .addCase(fetchUserData.fulfilled,(state,action)=>{
+            state.status='succeeded';
+            state.users=action.payload
+        })
+        
+
+        .addCase(fetchUserData.rejected,(state,action)=>{
+            state.status='failed';
+            state.error=action.error ?.message??null ;
+        })
+        
+    }
+ })
 
 export default userSlice.reducer;

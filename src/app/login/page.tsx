@@ -5,7 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'; 
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks/useAppDispatch';
-import { fetchUser } from '../../../store/reducers/userSlice';
+
+
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -13,22 +14,7 @@ const LoginPage: React.FC = () => {
 
   const dispatch = useAppDispatch();   
   const router = useRouter();
-  const { users } = useAppSelector((state) => state.users);
-
-  useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const user = users.find((user) => user.username === username);
-    if (user) {
-      localStorage.setItem('userId', user._id);
-      router.push('/main');
-    } else {
-      router.push('/signup');                 
-    }
-  };
+  const { user } = useAppSelector((state) => state.users);
 
   return (
     <div className="relative min-h-screen bg-black flex flex-col justify-center items-center">

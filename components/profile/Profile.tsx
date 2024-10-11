@@ -3,12 +3,12 @@ import React ,{ useEffect, useState } from 'react';
 import ProfileImage from '../ProfileImage';
 import Link from 'next/link';
 import { useAppDispatch,useAppSelector } from '../../hooks/hooks/useAppDispatch';
-import { fetchUser } from '../../store/reducers/userSlice';
+// import { fetchUser } from '../../store/reducers/userSlice';
 import EditProfile from '../editProfile/editProfile';
 
 const Profile = () => {
     const dispatch = useAppDispatch();
-    const { users } = useAppSelector((state) => state.users);
+    // const { users } = useAppSelector((state) => state.users);
 
     const [name, setName] = useState<string>('');
     const [username, setUserName] = useState<string>('');
@@ -16,7 +16,7 @@ const Profile = () => {
     const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false); 
 
     useEffect(() => {
-        dispatch(fetchUser());
+        // dispatch(fetchUser());
     }, [dispatch]);
 
     useEffect(() => {
