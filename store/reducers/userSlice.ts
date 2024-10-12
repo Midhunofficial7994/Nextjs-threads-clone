@@ -1,27 +1,31 @@
 import { error, log } from "console";
 import axiosInstance from "../../axios/axiosInstance";
-import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk,createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
 export const fetchUser =createAsyncThunk("user/fetchUser",async()=>{
     const response= await axiosInstance.get('/users');
     return response.data.users;
-})
+});
+
 export const fetchUserData=createAsyncThunk('user/fetchUserData',async(userId:string)=>{
     const response= await axiosInstance.get(`/users/${userId}`);
     return response.data.users;
 });
 
-export const loginUser= createAsyncThunk(
+export const loginUser =createAsyncThunk(
     'login/loginUser',
-    async (userData:{username :string;password:string},{rejectWithValue})=>{
+    async (userData:{username:string;password:string},{rejectWithValue})=>{
         try{
             console.log(userData)
-            const response= await axiosInstance('/users/login',userData);
+            const response=await axiosInstance.post('/users/login',userData);
             return response.data;
+        }catch(error:any){
+            return rejectWithValue(error.response?.data?.message||'An error occured');
         }
-    }catch error()
-)
+    }
+);
+
 
 interface User {
     id : string;
@@ -36,6 +40,7 @@ interface UserState {
     users:User[];
     userData:User[];
     posts:any[];
+    user:null;
     status:"idle"   |   'loading' |  'succeeded' | 'failed';
     error : string | null;
 }
@@ -46,12 +51,19 @@ const initialState: UserState={
    posts:[],
    status:"idle",
    error:null,
+   user:null,
 
 };
  const userSlice = createSlice({
     name:'users',
     initialState,
-    reducers:{},
+    reducers:{
+        resetState:(state)=>{
+            state.user=null;
+            state.status='idle';
+            state.error=null;
+        }
+    },
     extraReducers:(addingCase)=>{
        
         addingCase.addCase(fetchUser.pending,(state)=>{
@@ -70,6 +82,8 @@ const initialState: UserState={
             state.error = action.error?.message??null;
         });
 
+
+
         addingCase.addCase(fetchUserData.pending,(state)=>{
                                  state.status='loading';
 
@@ -77,7 +91,7 @@ const initialState: UserState={
 
         .addCase(fetchUserData.fulfilled,(state,action)=>{
             state.status='succeeded';
-            state.users=action.payload
+            state.userData=action.payload
         })
         
 
@@ -85,8 +99,27 @@ const initialState: UserState={
             state.status='failed';
             state.error=action.error ?.message??null ;
         })
+
+
+        .addCase(loginUser.pending,(state,action)=>{
+            state.status='loading';
+            
+        })
+        .addCase(loginUser.fulfilled,(state,action:PayloadAction<any>)=>{
+            state.status='succeeded';
+            state.user=action.payload
+        })
+        .addCase(loginUser.rejected,(state,action:PayloadAction<any>)=>{
+            state.status='failed';
+            state.error=action.payload
+        });
+
+
         
-    }
- })
+    },
+ });
+
+
+ export const {resetState} =userSlice.actions;
 
 export default userSlice.reducer;
