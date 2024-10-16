@@ -24,7 +24,7 @@ const LoginPage: React.FC = () => {
       
         localStorage.setItem('userId', userId);
         router.push('/main');
-    }
+    }   
 }, [status, user, router]);
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
