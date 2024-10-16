@@ -1,9 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import ProfileImage from '@/components/ProfileImage';
+import ProfileImage from '../ProfileImage';
 import Link from 'next/link';
-import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch';
-import { fetchUser } from '@/store/reducers/userSlice';
+import { useAppDispatch,useAppSelector } from '../../hooks/hooks/useAppDispatch';
+import { fetchUser } from '../../store/reducers/userSlice';
 import EditProfile from '../editProfile/editProfile';
 
 const Profile = () => {

@@ -17,10 +17,11 @@ import PostBtn from '../../../components/postbutton/postBtn';
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
     const { users } = useAppSelector((state) => state.users);
+    
     const { posts } = useAppSelector((state) => state.posts);
     const [currentUser, setCurrentUser] = useState<any>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [username, setUserName] = useState<string>('');
+    const [username, setUserName] = useState<string>('');      
     const [postContent, setPostContent] = useState<string>('');
     const [postImage, setPostImage] = useState<any>(null);
     const [preview, setPreview] = useState<string | null>(null);

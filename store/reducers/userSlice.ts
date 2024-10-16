@@ -1,4 +1,4 @@
-import { error, log } from "console";
+
 import axiosInstance from "../../axios/axiosInstance";
 import { createAsyncThunk,createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -28,8 +28,9 @@ export const loginUser =createAsyncThunk(
 
 
 interface User {
-    id : string;
+    _id : string;
     name:string;
+    username:string
     followers:string[];
     following: string [];
     email:string;
@@ -40,7 +41,7 @@ interface UserState {
     users:User[];
     userData:User[];
     posts:any[];
-    user:null;
+    user:any|null;
     status:"idle"   |   'loading' |  'succeeded' | 'failed';
     error : string | null;
 }
@@ -58,11 +59,7 @@ const initialState: UserState={
     name:'users',
     initialState,
     reducers:{
-        resetState:(state)=>{
-            state.user=null;
-            state.status='idle';
-            state.error=null;
-        }
+         
     },
     extraReducers:(addingCase)=>{
        
@@ -120,6 +117,6 @@ const initialState: UserState={
  });
 
 
- export const {resetState} =userSlice.actions;
+//  export const {resetState} =userSlice.actions;
 
-export default userSlice.reducer;
+export default userSlice.reducer; 
