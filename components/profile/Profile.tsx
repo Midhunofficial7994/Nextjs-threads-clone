@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import ProfileImage from '../ProfileImage';
 import Link from 'next/link';
-import { useAppDispatch,useAppSelector } from '../../hooks/hooks/useAppDispatch';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks/useAppDispatch';
 import { fetchUser } from '../../store/reducers/userSlice';
 import EditProfile from '../editProfile/editProfile';
 
@@ -13,7 +13,7 @@ const Profile = () => {
     const [name, setName] = useState<string>('');
     const [username, setUserName] = useState<string>('');
     const [profilePic, setProfilePic] = useState<string>('');
-    const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false); // State for modal
+    const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
         dispatch(fetchUser());
@@ -31,53 +31,41 @@ const Profile = () => {
         }
     }, [users]);
 
-    // Function to toggle Edit Profile modal
-    const handleEditProfileOpen = () => {
-        setIsEditModalOpen(true);
-    };
-
-    const handleEditProfileClose = () => {
-        setIsEditModalOpen(false);
-    };
+    const handleEditProfileOpen = () => setIsEditModalOpen(true);
+    const handleEditProfileClose = () => setIsEditModalOpen(false);
 
     return (
-        <div className="w-full bg-transparent">
-            {/* Edit Profile Modal */}
+        <div className="bg-black min-h-screen flex flex-col items-center p-8 text-white">
             <EditProfile isOpen={isEditModalOpen} onClose={handleEditProfileClose} />
 
-            <h1 className="flex items-center justify-center h-15 text-white text-2xl z-50 bg-transparent">
-                Profile
-            </h1>
+            <h1 className="text-4xl font-bold mb-6">Profile</h1>
 
-            <div className="bg-[#181818] rounded-xl h-full">
-                <div className="flex items-center justify-between h-24 w-full p-5">
-                    <div className="text-white">
-                        <h1>{name}</h1>
-                        <span>{username}</span>
-                    </div>
-
-                    <div className="w-12 h-12">
-                        <ProfileImage
-                            altText="Profile"
-                            profilePic={profilePic}
-                            className="w-12 h-12 object-cover rounded-full mr-2"
-                        />
+            <div className="w-full max-w-md p-6 bg-gray-800 rounded-lg shadow-lg space-y-6">
+                <div className="flex items-center space-x-4">
+                    <ProfileImage altText="Profile" profilePic={profilePic} />
+                    <div>
+                        <h2 className="text-2xl font-semibold">{name}</h2>
+                        <span className="text-gray-400">@{username}</span>
                     </div>
                 </div>
 
-                <div className="bg-[#181818] px-4">
-                    <div
-                        className="border border-gray-500 rounded-xl px-4 py-2 cursor-pointer"
-                        onClick={handleEditProfileOpen}
-                    >
-                        Edit Profile
-                    </div>
-                </div>
+                <button
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition"
+                    onClick={handleEditProfileOpen}
+                >
+                    Edit Profile
+                </button>
 
-                <div className="flex items-center justify-between p-5">
-                    <Link href={'/main/profile'} className="text-white">Threads</Link>
-                    <Link href={'/main/profile/replies'} className="text-white">Replies</Link>
-                    <Link href={'/main/profile/reposts'} className="text-white">Reposts</Link>
+                <div className="flex justify-around pt-4 border-t border-gray-700">
+                    <Link href="/main/profile" className="hover:underline">
+                        Threads
+                    </Link>
+                    <Link href="/main/profile/replies" className="hover:underline">
+                        Replies
+                    </Link>
+                    <Link href="/main/profile/reposts" className="hover:underline">
+                        Reposts
+                    </Link>
                 </div>
             </div>
         </div>

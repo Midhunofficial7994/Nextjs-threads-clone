@@ -194,7 +194,7 @@ const HomePage: React.FC = () => {
                                 postId={postId}
                                 userId={userId}
                                 userProfilePic={userProfilePic}
-                                username={username}
+                                username={username} 
                             />
                         </div>
                     ))}
