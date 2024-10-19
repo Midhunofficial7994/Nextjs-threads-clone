@@ -41,25 +41,13 @@ const SearchPage: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen text-white">
-            {/* Search Header */}
+        
             <div className="sticky top-0 bg-black w-full text-center py-3 z-50">
                 <div className="text-1xl font-bold">Search Users</div>
             </div>
 
-            {/* <div className="flex flex-col items-center justify-center min-h-screen  text-white">
-            <div className='sticky top-0 bg-black w-full text-center py-3 z-50'>
-                <div className="text-1xl font-bold">For you</div>
-            </div>
-            <div className="bg-[#181818] rounded-3xl p-4 w-full max-w-xl">
-                <div className="flex justify-between items-center mb-4 border-b border-gray-600 pb-2">
-                    <div className="flex items-center">
-                        <ProfileImage
-                            profilePic={currentUser?.profilePic}
-                            altText="profile"
-                            className="w-10 h-10 rounded-full"
-                        /> */}
 
-            {/* Search Bar */}
+          
             <div className="bg-[#181818] sticky rounded-3xl p-4 w-full max-w-xl">
                 <div className="flex  justify-between items-center bg-gray-800 p-2 rounded-full mb-4 shadow-md max-w-xl">
                     <Icons.search />
@@ -72,12 +60,12 @@ const SearchPage: React.FC = () => {
                     />
                 </div>
 
-                {/* User Search Results */}
+              
                 <div className="flex flex-col gap-4 max-w-xl">
                     {filteredUsers.length > 0 ? (
                         filteredUsers.map((user) => (
                             <div key={user._id} className="bg-[#181818] rounded-lg p-4 shadow-md flex items-center justify-between">
-                                {/* Profile Image and Info */}
+                            
                                 <div className="flex items-center">
                                     <ProfileImage
                                         profilePic={user.profilePic || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'}
@@ -93,7 +81,7 @@ const SearchPage: React.FC = () => {
 
                                 {/* Follow Button
                                 {currentUser && currentUser._id !== user._id && (
-                                    // <FollowButton userId={user._id} isFollowing={user.followers.includes(currentUser._id)} />
+                                    <FollowButton userId={user._id} isFollowing={user.followers.includes(currentUser._id)} />
                                 )} */}
                             </div>
                         ))

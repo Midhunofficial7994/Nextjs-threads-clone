@@ -12,7 +12,7 @@ const PostBtn: React.FC<PostBtnProps> = ({ onClick }) => {
         >
             Post
         </div>
-    );
+    ); 
 };
 
 export default PostBtn;

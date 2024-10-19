@@ -60,54 +60,48 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
     if (!isOpen) return null;
 
     return (
-        <div className=" inset-0 w-screen h-screen bg-black bg-opacity-60 flex justify-center items-center z-[1000]">
-            <div className="bg-[#181818] p-8 w-[90%] max-w-[500px] rounded-lg shadow-lg relative animate-fadeIn">
-                <button
-                    onClick={onClose}
-                    className="absolute top-2 right-2 text-2xl text-gray-500 hover:text-red-500 transition-colors"
-                >
-                    &times;
-                </button>
-                <div className="mt-4 text-gray-200">
-                    {children}
-                    <div className="flex flex-col gap-4 mt-8">
-                        <textarea
-                            placeholder="Write a post"
-                            value={postContent}
-                            onChange={handlePostChange}
-                            className="bg-[#181818] p-4 rounded-lg shadow-sm text-base text-white resize-none outline-none"
-                            rows={4}
-                        />
-                        {preview && (
-                            <div className="w-full max-h-[300px] overflow-hidden rounded-md">
-                                <img
-                                    src={preview} 
-                                    alt="Preview"
-                                    className="w-full h-auto object-cover rounded-md"
-                                />
-                            </div>
-                        )}
-                        <div className="relative">
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleImageChange}
-                                className="absolute inset-0 opacity-0 cursor-pointer"
-                            />
-                            <label className="flex items-center text-gray-300 cursor-pointer hover:text-white">
-                                <Icons.image />
-                                <span className="ml-2">Upload Image</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div className="mt-6 flex justify-end">
-                        <PostBtn onClick={handlePostSubmit} />
-                    </div>
+      
+       <div className="bg-[#181818] p-8 w-[95%] max-w-[600px] rounded-[20px] shadow-lg animate-fadeIn">
+          <button onClick={onClose} className="absolute top-2 right-2 text-2xl text-gray-500 hover:text-red-500 transition-colors">
+            &times;
+          </button>
+          <div className="mt-4 text-gray-200">
+            {children}
+            <div className="flex flex-col gap-4 mt-8">
+              <textarea
+                placeholder="Write a post"
+                value={postContent}
+                onChange={handlePostChange}
+                className="bg-[#181818] p-4 rounded-lg shadow-sm text-base text-white resize-none outline-none"
+                rows={4}
+              />
+              {preview && (
+                <div className="w-full max-h-[300px] overflow-hidden rounded-md">
+                  <img src={preview} alt="Preview" className="w-full h-auto object-cover rounded-md" />
                 </div>
+              )}
+              <div className="relative">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="absolute inset-0 opacity-0 cursor-pointer"
+                />
+                <label className="flex items-center text-gray-300 cursor-pointer hover:text-white">
+                    <div className='flex justify-end'>
+                <button className="ml-2 border h-10 w-56 rounded-lg">Upload Image</button>
+                </div>
+                </label>
+              </div>
             </div>
-        </div>
+            <div className="mt-6 flex justify-end">
+              <PostBtn onClick={handlePostSubmit} />
+            </div>
+          </div>
+     
+      </div>
     );
-};
+  };
 
 export default Threads;
 

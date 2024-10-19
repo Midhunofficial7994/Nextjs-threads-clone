@@ -89,14 +89,14 @@ const HomePage: React.FC = () => {
             alert('User not found! Please log in.');
             return;
         }
-        // const newPost = {
-        //     userId: currentUser._id,
-        //     text: postContent,
-        //     image: postImage,
-        // };
+        const newPost = {
+            userId: currentUser._id,
+            text: postContent,
+            image: postImage,
+        };
 
-        // dispatch(addNewPost(newPost));
-        // setPostContent('');
+        dispatch(addNewPost(newPost));
+        setPostContent('');
     };
 
     return (
@@ -127,12 +127,12 @@ const HomePage: React.FC = () => {
                         <p className="ml-2 text-lg">{username}</p>
                     </div>
                  
-                    {/* <button
+                    <button
                         className="bg-blue-600 text-white rounded px-4 py-2"
                         onClick={handlePostSubmit}
                     >
                         Post
-                    </button> */}
+                    </button> 
                 </Threads>
 
                 <Reply

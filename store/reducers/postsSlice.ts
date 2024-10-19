@@ -20,7 +20,7 @@ interface Post {
 }
 interface PostsState {
     posts: Post[];
-    status: "idle" | "loading" | "succeeded" | "failed";
+    status: "idle" | "loading" | "succeeded" | "failed";            
     error: string | null;
 }
 const initialState: PostsState = {
