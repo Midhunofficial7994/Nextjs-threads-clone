@@ -48,7 +48,7 @@ const SearchPage: React.FC = () => {
 
 
           
-            <div className="bg-[#181818] sticky rounded-3xl p-4 w-full max-w-xl">
+            <div className="bg-[#181818] sticky rounded-3xl p-4 w-96 max-w-xl">
                 <div className="flex  justify-between items-center bg-gray-800 p-2 rounded-full mb-4 shadow-md max-w-xl">
                     <Icons.search />
                     <input

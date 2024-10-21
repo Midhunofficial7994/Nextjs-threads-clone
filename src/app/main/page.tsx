@@ -122,7 +122,7 @@ const HomePage: React.FC = () => {
                         <img
                             src={currentUser?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
                             alt="profile"
-                            className="w-10 h-10 rounded-full"
+                            className="w-auto h-auto rounded-full"
                         />
                         <p className="ml-2 text-lg">{username}</p>
                     </div>

@@ -16,7 +16,7 @@ interface Notification {
    
     id:string;
     description:string;
-    senderUSerId:User;
+    senderUserId:User;
 
 }
 
@@ -39,8 +39,8 @@ export const fetchNotifications =createAsyncThunk(
         try {
             const userId= localStorage.getItem('userId');
             if(userId){
-                const response = await axiosInstance.get(`user/notification/${userId}`);
-                return response.data.notifications;
+                const response = await axiosInstance.get(`users/notification/${userId}`);
+                return response.data.notifications;    
 
             }
 

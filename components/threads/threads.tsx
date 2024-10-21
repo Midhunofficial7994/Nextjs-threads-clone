@@ -61,18 +61,18 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
 
     return (
       
-       <div className="bg-[#181818] p-8 w-[95%] max-w-[600px] rounded-[20px] shadow-lg animate-fadeIn">
+       <div className="bg-black p-8 w-[95%] max-w-[600px] rounded-[20px] shadow-lg animate-fadeIn">
           <button onClick={onClose} className="absolute top-2 right-2 text-2xl text-gray-500 hover:text-red-500 transition-colors">
             &times;
           </button>
           <div className="mt-4 text-gray-200">
             {children}
-            <div className="flex flex-col gap-4 mt-8">
+            <div className="flex flex-col gap-4 mt-2">
               <textarea
                 placeholder="Write a post"
                 value={postContent}
                 onChange={handlePostChange}
-                className="bg-[#181818] p-4 rounded-lg shadow-sm text-base text-white resize-none outline-none"
+                className="bg-[#181818]  p-4 rounded-lg shadow-sm text-base text-white resize-none outline-none"
                 rows={4}
               />
               {preview && (
@@ -89,7 +89,7 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
                 />
                 <label className="flex items-center text-gray-300 cursor-pointer hover:text-white">
                     <div className='flex justify-end'>
-                <button className="ml-2 border h-10 w-56 rounded-lg">Upload Image</button>
+                <button className="ml-1 border h-10 w-56 rounded-lg">Upload Image</button>
                 </div>
                 </label>
               </div>

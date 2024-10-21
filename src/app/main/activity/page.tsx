@@ -13,26 +13,26 @@ const ActivityPage: React.FC = () => {
     }, [dispatch]);
 
     return (
-        <div className="bg-[#181818] w-full p-4">
-            <div className="text-white text-xl mb-4">Activity</div>
+        <div className="bg-[#181818] w-96 p-7 rounded-3xl">
+            <div className="text-white text-xl mb-2">Activity</div>
             <div>
                 {error && <div className="text-red-500">{error}</div>}
                 {notifications.length === 0 && status !== 'loading' && !error && (
                     <div className="text-gray-300">No notifications available.</div>
-                )}
+                )} 
                 {status === 'loading' && <div className="text-gray-300">Loading notifications...</div>}
                 {notifications.map((notification) => (
                     <div key={notification.id} className="border-b border-[#383939] py-4">
                         <div className="flex items-center">
                             <div className="p-3">
                                 <ProfileImage 
-                                    profilePic={notification.senderUSerId.profilePic}
+                                    profilePic={notification.senderUserId.profilePic}
                                     altText="profile"
                                     className="w-10 h-10 rounded-full object-cover"
                                 />
                             </div>
                             <div className="flex flex-col justify-start ml-2">
-                                <div className="text-white">{notification.senderUSerId.name}</div>
+                                <div className="text-white">{notification.senderUserId.name}</div>
                                 <div className="text-gray-400">{notification.description}</div>
                             </div>
                         </div>
