@@ -117,6 +117,6 @@ const initialState: UserState={
  });
 
 
-//  export const {resetState} =userSlice.actions;
+
 
 export default userSlice.reducer; 
