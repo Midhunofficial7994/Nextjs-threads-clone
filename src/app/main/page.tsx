@@ -56,6 +56,7 @@ const HomePage: React.FC = () => {
             }
         }
     }, [users]);
+    
 
     useEffect(() => {
         if (currentUser) {
@@ -124,7 +125,8 @@ const HomePage: React.FC = () => {
                             alt="profile"
                             className="w-auto h-auto rounded-full"
                         />
-                        <p className="ml-2 text-lg">{username}</p>
+                        <p className="ml-2 text-lg">{username}</p>  
+                        
                     </div>
                  
                     <button
