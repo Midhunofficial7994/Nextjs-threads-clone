@@ -32,7 +32,7 @@ const ProfilePage: React.FC = () => {
     console.log(posts);
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 bg-[#181818]">
             {posts.length > 0 ? (
                 posts.map((post: { _id: string; userProfilePic: string; username: string; text: string; image: string; createdOn: string; replies: any[] }) => (
                     <div key={post._id} className="flex flex-col gap-4 bg-transparent p-4 border-b border-gray-700">
@@ -50,11 +50,11 @@ const ProfilePage: React.FC = () => {
                         </div>
                         <p className="text-left ml-2 text-white">{post.text}</p>
                         {post.image && (
-                            <img src={post.image} alt="post" className="w-1/2 h-1/2 ml-12 object-cover rounded-md" />
+                            <img src={post.image} alt="post" className="w-32 h-auto ml-12 object-cover rounded-md" />
                         )}
                         <div className="flex flex-col gap-4 mt-4">
                             {post.replies && post.replies.length > 0 && (
-                                <div className="w-full flex flex-col ml-24 bg-gray-900 p-4 rounded-lg">
+                                <div className="w-auto flex flex-col ml-14 bg-black p-4 rounded-lg">
                                     {post.replies.map((reply: { text: string, _id: string, userId: string, userProfilePic: string, username: string }) => (
                                         <div key={reply._id} className="flex items-center gap-4">
                                             <ProfileImage profilePic={reply.userProfilePic} altText="Profile" className="w-8 h-8 object-cover rounded-full" />

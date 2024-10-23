@@ -44,19 +44,20 @@ const Repost: React.FC<RepostProps> = ({ isOpen, onClose, postId, userProfilePic
                 <button className="absolute top-2.5 right-2.5 text-2xl font-bold cursor-pointer" onClick={onClose}>
                     &times;
                 </button>
+                                   
 
                 {error && <p className="text-red-500 mb-4">{error}</p>}
 
                 <div className="mt-9 flex justify-center gap-4">
                     <button
-                        className="px-4 py-2 bg-gray-300 rounded cursor-pointer transition hover:bg-gray-400"
+      
                         onClick={onClose}
                         disabled={loading}
                     >
                         Cancel
                     </button>
                     <button
-                        className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer transition hover:bg-blue-600"
+                     
                         onClick={handleRepost}
                         disabled={loading}
                     >

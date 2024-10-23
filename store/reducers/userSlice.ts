@@ -3,7 +3,7 @@ import axiosInstance from "../../axios/axiosInstance";
 import { createAsyncThunk,createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
-export const fetchUser =createAsyncThunk("user/fetchUser",async()=>{
+export const fetchUser =createAsyncThunk("user/fetchUser",async()=>{                          
     const response= await axiosInstance.get('/users');
     return response.data.users;
 });
@@ -20,12 +20,12 @@ export const loginUser =createAsyncThunk(
             console.log(userData)
             const response=await axiosInstance.post('/users/login',userData);
             return response.data;
-        }catch(error:any){
+        }catch(error:any){                                                                                                       
             return rejectWithValue(error.response?.data?.message||'An error occured');
         }
     }
 );
-
+                                                                                            
 
 interface User {
     _id : string;

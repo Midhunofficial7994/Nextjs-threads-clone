@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks/useAppDi
 import { fetchUser } from '../../../../store/reducers/userSlice';
 import ProfileImage from '../../../../components/ProfileImage'; // Assuming you're reusing the ProfileImage component
 import { Icons } from '../../../../ui/Icons/users';
+import FollowBtn from '../../../../components/FollowBtn/FollowBtn';
 // import FollowButton from '../../../../components/FollowButton'; // If you have a follow button component
 
 const SearchPage: React.FC = () => {
@@ -79,10 +80,10 @@ const SearchPage: React.FC = () => {
                                     </div>
                                 </div>
 
-                                {/* Follow Button
+                               
                                 {currentUser && currentUser._id !== user._id && (
-                                    <FollowButton userId={user._id} isFollowing={user.followers.includes(currentUser._id)} />
-                                )} */}
+                                    <FollowBtn userId={user._id}/>
+                                )}
                             </div>
                         ))
                     ) : (

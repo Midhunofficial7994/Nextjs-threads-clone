@@ -21,7 +21,7 @@ const Profile = () => {
 
     useEffect(() => {
         const userId = localStorage.getItem('userId');
-        if (userId && users.length > 0) {
+        if (userId && users.length > 0) {                
             const user = users.find((user) => user._id === userId);
             if (user) {
                 setName(user.name || '');
@@ -35,28 +35,32 @@ const Profile = () => {
     const handleEditProfileClose = () => setIsEditModalOpen(false);
 
     return (
-        <div className="bg-black min-h-screen flex flex-col items-center p-8 text-white">
+        <div className="bg-black min-h-screen  mt-32 flex flex-col items-center p-8 text-white">
             <EditProfile isOpen={isEditModalOpen} onClose={handleEditProfileClose} />
 
             <h1 className="text-4xl font-bold mb-6">Profile</h1>
 
-            <div className="w-full max-w-md p-6 bg-gray-800 rounded-lg shadow-lg space-y-6">
+            <div className="w-full max-w-md p-6 bg-[#181818] rounded-lg shadow-lg space-y-6">
                 <div className="flex items-center space-x-4">
-                    <ProfileImage altText="Profile" profilePic={profilePic} />
-                    <div>
+                    <ProfileImage
+                        profilePic={profilePic}
+                        altText="Profile"
+                        className="w-12 h-12 object-cover rounded-full"
+                    />
+                    <div className="flex flex-col">
                         <h2 className="text-2xl font-semibold">{name}</h2>
-                        <span className="text-gray-400">@{username}</span>
+                        <span className="text-gray-400 text-sm">@{username}</span>
                     </div>
                 </div>
 
                 <button
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition"
+                    className="w-full bg-black hover:bg-blue-700 text-white py-2 rounded-md transition"
                     onClick={handleEditProfileOpen}
                 >
                     Edit Profile
                 </button>
 
-                <div className="flex justify-around pt-4 border-t border-gray-700">
+                <div className="flex justify-around pt-4 border-t  border-gray-700">
                     <Link href="/main/profile" className="hover:underline">
                         Threads
                     </Link>
