@@ -33,6 +33,7 @@ const Profile = () => {
 
     const handleEditProfileOpen = () => setIsEditModalOpen(true);
     const handleEditProfileClose = () => setIsEditModalOpen(false);
+ 
 
     return (
         <div className="bg-black min-h-screen  mt-32 flex flex-col items-center p-8 text-white">

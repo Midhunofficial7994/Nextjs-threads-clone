@@ -1,6 +1,6 @@
  
 import React from 'react';
-// import styles from './FollowBtn.module.scss';
+
 import axiosInstance from '../../axios/axiosInstance';
 
 interface FollowBtnProps {
@@ -11,6 +11,7 @@ const FollowBtn: React.FC<FollowBtnProps> = ({ userId }) => {
     const [isFollowing, setIsFollowing] = React.useState<boolean>(false);
    
     const senderId = localStorage.getItem('userId');
+
         const checkFollowingStatus = async () => {
             try {
                 const res = await axiosInstance.get(`/users/${userId}`);

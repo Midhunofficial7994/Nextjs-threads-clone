@@ -23,7 +23,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
     const file = e.target.files?.[0];
     if (file) {
       setProfilePic(file);
-      setPreviewImage(URL.createObjectURL(file)); // Preview the uploaded image
+      setPreviewImage(URL.createObjectURL(file)); 
     }
   };
 
@@ -31,14 +31,14 @@ const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start z-50 pt-10">
-      {/* Modal container */}
+  
       <div className="bg-[#181818] p-6 rounded-lg w-[350px] relative shadow-md animate-fadeIn">
-        {/* Close button */}
+     
         <button onClick={onClose} className="absolute top-3 right-3 text-xl text-gray-400 hover:text-gray-300">
           ✕
         </button>
 
-        {/* Form */}
+ 
         <form className="flex flex-col gap-4">
           <div className="flex flex-col">
             <label htmlFor="name" className="text-gray-400 mb-1">Name</label>
@@ -77,7 +77,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
           <div className="flex flex-col">
             <label htmlFor="username" className="text-gray-400 mb-1">Username</label>
             <input
-              type="text"
+              type="text" 
               id="username"
               className="p-2 border border-gray-600 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />

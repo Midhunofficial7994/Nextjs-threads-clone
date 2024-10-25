@@ -13,18 +13,18 @@ export const fetchUserData=createAsyncThunk('user/fetchUserData',async(userId:st
     return response.data.users;
 });
 
-export const loginUser =createAsyncThunk(
-    'login/loginUser',
-    async (userData:{username:string;password:string},{rejectWithValue})=>{
-        try{
-            console.log(userData)
-            const response=await axiosInstance.post('/users/login',userData);
-            return response.data;
-        }catch(error:any){                                                                                                       
-            return rejectWithValue(error.response?.data?.message||'An error occured');
-        }
-    }
-);
+// export const loginUser =createAsyncThunk(
+//     'login/loginUser',
+//     async (userData:{username:string;password:string},{rejectWithValue})=>{
+//         try{
+//             console.log(userData)
+//             const response=await axiosInstance.post('/users/login',userData);
+//             return response.data;
+//         }catch(error:any){                                                                                                       
+//             return rejectWithValue(error.response?.data?.message||'An error occured');
+//         }
+//     }
+// );
                                                                                             
 
 interface User {
@@ -98,18 +98,18 @@ const initialState: UserState={
         })
 
 
-        .addCase(loginUser.pending,(state,action)=>{
-            state.status='loading';
+        // .addCase(loginUser.pending,(state,action)=>{
+        //     state.status='loading';
             
-        })
-        .addCase(loginUser.fulfilled,(state,action:PayloadAction<any>)=>{
-            state.status='succeeded';
-            state.user=action.payload
-        })
-        .addCase(loginUser.rejected,(state,action:PayloadAction<any>)=>{
-            state.status='failed';
-            state.error=action.payload
-        });
+        // })
+        // .addCase(loginUser.fulfilled,(state,action:PayloadAction<any>)=>{
+        //     state.status='succeeded';
+        //     state.user=action.payload
+        // })
+        // .addCase(loginUser.rejected,(state,action:PayloadAction<any>)=>{
+        //     state.status='failed';
+        //     state.error=action.payload
+        // });
 
 
         
