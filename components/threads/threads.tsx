@@ -101,7 +101,7 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div>  
   );
 };
 
