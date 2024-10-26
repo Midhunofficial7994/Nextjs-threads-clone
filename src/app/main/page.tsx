@@ -117,26 +117,9 @@ const HomePage: React.FC = () => {
                     </div>
                    <PostBtn onClick={openModal}/>
                 </div>
-
-                <Threads isOpen={isModalOpen} onClose={closeModal}>
-                    <div className="flex items-center mb-4">
-                        <img
-                            src={currentUser?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
-                            alt="profile"
-                            className="w-auto h-auto rounded-full"
-                        />
-                        <p className="ml-2 text-lg">{username}</p>  
-                        
-                    </div>
-                 
-                    <button
-                        className="bg-blue-600 text-white rounded px-4 py-2"
-                        onClick={handlePostSubmit}
-                    >
-                        Post
-                    </button> 
-                </Threads>
-
+                <Threads isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <h2 className="text-white">Create a new post</h2>
+        </Threads>
                 <Reply
                     isOpen={isCommentOpen}
                     onClose={closeComment}

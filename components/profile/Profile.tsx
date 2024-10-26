@@ -36,7 +36,7 @@ const Profile = () => {
  
 
     return (
-        <div className="bg-black min-h-screen  mt-32 flex flex-col items-center p-8 text-white">
+        <div className="w-full bg-transparent">
             <EditProfile isOpen={isEditModalOpen} onClose={handleEditProfileClose} />
 
             <h1 className="text-4xl font-bold mb-6">Profile</h1>
@@ -78,3 +78,6 @@ const Profile = () => {
 };
 
 export default Profile;
+
+
+
