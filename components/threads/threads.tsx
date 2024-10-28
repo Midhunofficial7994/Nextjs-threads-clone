@@ -64,8 +64,8 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
   
 
   return (
-    <div className=" inset-0 w-full h-full bg-black bg-opacity-60 flex justify-center items-center z-[1000]">
-      <div className="bg-[#181818] p-8 w-[90%] max-w-[500px] rounded-lg shadow-lg relative animate-fadeIn">
+    <div className="  w-full h-full bg-black bg-opacity-60 flex justify-center items-center z-[1000]">
+      <div >
         <button onClick={onClose} className="absolute top-2 right-2 text-2xl text-gray-500 hover:text-red-500 transition-colors">
           &times;
         </button>
@@ -89,10 +89,9 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
-                className="absolute inset-0 opacity-0 cursor-pointer"
               />
               <label className="flex items-center text-gray-300 cursor-pointer hover:text-white">
-                <button className="ml-2 border h-10 w-56 rounded-lg">Upload Image</button>
+                <button >Upload Image</button>
               </label>
             </div>
           </div>
