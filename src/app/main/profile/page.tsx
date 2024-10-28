@@ -2,10 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../../../hooks/hooks/useAppDispatch';
 import ProfileImage from '../../../../components/ProfileImage';
-import { fetchPostByUserId } from '../../../../store/reducers/postSlice';
 import TimeAgo from '../../../../components/TimeAgo';
 import axios from 'axios';
-import { Icons } from '../../../../ui/Icons/users';
+
 
 const ProfilePage: React.FC = () => {
     const dispatch = useAppDispatch();      
@@ -32,7 +31,7 @@ const ProfilePage: React.FC = () => {
     console.log(posts);
 
     return (
-        <div className="flex flex-col gap-4 bg-[#181818]">
+        <div className="flex flex-col  gap-4 bg-[#181818]">
             {posts.length > 0 ? (
                 posts.map((post: { _id: string; userProfilePic: string; username: string; text: string; image: string; createdOn: string; replies: any[] }) => (
                     <div key={post._id} className="flex flex-col gap-4 bg-transparent p-4 border-b border-gray-700">
@@ -46,7 +45,7 @@ const ProfilePage: React.FC = () => {
                                 <h3 className="text-white text-lg">{post.username}</h3>
                                 <TimeAgo dateString={post.createdOn} />
                             </div>
-                            <Icons.circleMenu className="ml-auto cursor-pointer" />
+                            
                         </div>
                         <p className="text-left ml-2 text-white">{post.text}</p>
                         {post.image && (
@@ -57,7 +56,7 @@ const ProfilePage: React.FC = () => {
                                 <div className="w-auto flex flex-col ml-14 bg-black p-4 rounded-lg">
                                     {post.replies.map((reply: { text: string, _id: string, userId: string, userProfilePic: string, username: string }) => (
                                         <div key={reply._id} className="flex items-center gap-4">
-                                            <ProfileImage profilePic={reply.userProfilePic} altText="Profile" className="w-8 h-8 object-cover rounded-full" />
+                                            <ProfileImage profilePic={reply.userProfilePic} altText="Profile" className="w-2 h-2 object-cover rounded-full" />
                                             <h5 className="text-white">{reply.username}</h5>
                                             <p className="text-gray-300">{reply.text}</p>
                                         </div>

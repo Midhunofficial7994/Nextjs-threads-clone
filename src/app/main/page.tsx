@@ -107,7 +107,7 @@ const HomePage: React.FC = () => {
             </div>
             <div className="bg-[#181818] sticky rounded-3xl p-4 w-full max-w-xl">
                 <div className="flex justify-between items-center mb-4 border-b border-gray-600 pb-2">
-                    <div className="flex items-center">
+                    <div className="flex items-center ">
                         <ProfileImage
                             profilePic={currentUser?.profilePic}
                             altText="profile"
@@ -145,7 +145,7 @@ const HomePage: React.FC = () => {
                                 <img
                                     src={post.postById?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
                                     alt="profile"
-                                    className="w-10 h-10 rounded-full"
+                                    className="w-auto h-10 rounded-full"
                                 />
                                 <div className="ml-2">
                                     <p className="font-semibold">{post.postById.username}</p>
@@ -153,14 +153,15 @@ const HomePage: React.FC = () => {
                                 </div>
                             </div>
                             <p className="mb-2">{post.text}</p>
-                            {post.image && <img src={post.image} alt="post" className="rounded mb-2" />}
-                            <div className="flex justify-between">
+                            {post.image && <img src={post.image} alt="post" className="rounded mb-2 w-screen h-96" />}
+                            <div className="flex">
                                 {currentUser ? (
                                     <LikeButton
                                         initialLike={post.likes.length} 
                                         postId={post._id}
                                         userId={currentUser?._id}
                                         likedUsers={post.likes}
+                                    
                                     />
                                 ) : (
                                     <p>Please Login to Like the Post</p>
