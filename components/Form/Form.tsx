@@ -16,6 +16,7 @@ const Form = () => {
     if (user && user._id) {  
       const userId = user._id;
       await setCookie(userId);
+      
       router.push('/main');
     }
   };

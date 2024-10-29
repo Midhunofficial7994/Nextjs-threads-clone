@@ -35,6 +35,7 @@ interface User {
     following: string [];
     email:string;
     profilePic: string;
+    bio:string;
 }
 
 interface UserState {

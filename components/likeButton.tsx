@@ -39,7 +39,7 @@ const LikeButton = ({ initialLike, postId, userId, likedUsers }: LikeButtonProps
         } catch (error) {
             console.error('Error updating like:', error)
     
-            setLike(isLiked ? like + 1 : like - 1)
+            setLike(isLiked ? like + 1 : like - like)
             setIsLiked(isLiked)
         }
     }

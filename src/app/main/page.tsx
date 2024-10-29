@@ -148,7 +148,7 @@ const HomePage: React.FC = () => {
                                     className="w-auto h-10 rounded-full"
                                 />
                                 <div className="ml-2">
-                                    <p className="font-semibold">{post.postById.username}</p>
+                                    <p className="font-semibold">{post.postById?.username}</p>
                                     <span className="text-gray-400 text-sm"><TimeAgo dateString={post.createdOn} /></span>
                                 </div>
                             </div>

@@ -1,12 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-// import ProfileImage from '@/components/ProfileImage';
 import ProfileImage from '../ProfileImage';
 import Link from 'next/link';
 import { useAppDispatch,useAppSelector } from '../../hooks/hooks/useAppDispatch';
 import { fetchUser } from '../../store/reducers/userSlice';
 import EditProfile from '../editProfile/editProfile';
-// import EditProfile from '../editProfile/editProfile';
+
 
 const Profile = () => {
     const dispatch = useAppDispatch();
@@ -29,7 +28,7 @@ const Profile = () => {
                 setName(user.name || '');
                 setUserName(user.username || '');
                 setProfilePic(user.profilePic || '');
-                
+                setUserBio(user.bio || '');
             }
         }
     }, [users]);
@@ -46,13 +45,13 @@ const Profile = () => {
         <div className="w-full bg-transparent">
             <EditProfile isOpen={isEditModalOpen} onClose={handleEditProfileClose} />
             
-            <h1 className=" flex items-center justify-center text-white text-2xl bg-transparent  z-[1000]">
+            <h1 className="h-[60px] flex items-center justify-center text-white text-xl bg-transparent z-[1000]">
                 Profile
             </h1>
 
-            <div className="bg-[#181818] rounded-2xl w-auto">
-                {/* Profile Section */}
-                <div className="flex justify-between items-center h-[100px] w-full p-5">
+            <div className="bg-[#181818] rounded-2xl h-full">
+              
+                <div className="flex justify-between items-center h-[140px] w-full p-5">
                     <div className="text-white">
                         <h1 className="text-xl font-semibold">{name}</h1>
                         <span className="text-gray-400 mt-2">{username}</span>
@@ -60,46 +59,44 @@ const Profile = () => {
                             {userBio}  
                         </p>
                     </div>
-                    <div className="w-[50px] h-[50px] mr-2.5">
+                    <div className="w-[80px] h-[80px] mr-2.5">
                         <ProfileImage
                             altText="Profile"
                             profilePic={profilePic}
-                            className="w-full h-full object-cover rounded-full"
+                            className="w-8 h-8  rounded-full"
                         />
                     </div>
                 </div>
 
-                {/* Edit Profile Button */}
+             
                 <div className="bg-[#181818] px-4">
-                    <div 
-                        className="border border-gray-600 rounded-2xl p-2.5 cursor-pointer hover:bg-gray-800 transition-colors text-center text-white"
-                        onClick={handleEditProfileOpen}
-                    >
+                    
+                        <div  className="border border-gray-600 rounded-2xl p-2.5 cursor-pointer hover:bg-gray-100  hover:text-black transition-colors text-center text-white w"
+                        onClick={handleEditProfileOpen}>
                         Edit Profile
-                    </div>
+                        </div>
                 </div>
 
-                {/* Profile Stats */}
-                <div className="flex justify-between items-center p-5">
+                {/* <div className="flex justify-between items-center p-5">
                     <Link 
-                        href={'/main/profile'} 
+                        href={'/main/UserProfile/threads'} 
                         className="text-white hover:text-gray-300 transition-colors"
                     >
                         Threads
                     </Link>
                     <Link 
-                        href={'/main/profile/replies'}
+                        href={'/main/UserProfile/reply'}
                         className="text-white hover:text-gray-300 transition-colors"
                     >
                         Replies
                     </Link>
                     <Link 
-                        href={'/main/profile/reposts'}
+                        href={'/main/UserProfile/repost'}
                         className="text-white hover:text-gray-300 transition-colors"
                     >
                         Reposts
                     </Link>
-                </div>
+                </div> */}
             </div>
         </div>
     );

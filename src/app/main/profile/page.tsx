@@ -56,7 +56,7 @@ const ProfilePage: React.FC = () => {
                                 <div className="w-auto flex flex-col ml-14 bg-black p-4 rounded-lg">
                                     {post.replies.map((reply: { text: string, _id: string, userId: string, userProfilePic: string, username: string }) => (
                                         <div key={reply._id} className="flex items-center gap-4">
-                                            <ProfileImage profilePic={reply.userProfilePic} altText="Profile" className="w-2 h-2 object-cover rounded-full" />
+                                            {/* <ProfileImage profilePic={reply.userProfilePic} altText="Profile" className="w-8 h-8 object-cover rounded-full" /> */}
                                             <h5 className="text-white">{reply.username}</h5>
                                             <p className="text-gray-300">{reply.text}</p>
                                         </div>

@@ -76,7 +76,7 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, postId, userId, userProf
                         <div className="mb-4">
                             <div className="flex items-start mb-2">
                                 <div className="w-full">
-                                    <p className="text-white font-bold text-sm">{post.postById.username}</p>
+                                    <p className="text-white font-bold text-sm">{post.postById?.username}</p>
                                     <p className="text-white text-sm">{post.text}</p>
                                 </div>
                             </div>
