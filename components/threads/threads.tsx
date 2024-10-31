@@ -1,6 +1,8 @@
 import React, { ReactNode, useState } from 'react';
 import PostBtn from '../postbutton/postBtn';
 import axiosInstance from '../../axios/axiosInstance';
+import { useAppDispatch } from '../../hooks/hooks/useAppDispatch';
+import { fetchPosts } from '../../store/reducers/postsSlice';
 
 interface ThreadsProps {
   isOpen: boolean;
@@ -12,6 +14,7 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
   const [postContent, setPostContent] = useState<string>('');
   const [postImage, setPostImage] = useState<any>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const dispatch= useAppDispatch();
 
   const handlePostSubmit = async () => {
     const userId = localStorage.getItem('userId');
@@ -33,7 +36,8 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
     try {
       const res = await axiosInstance.post('/posts', newPostFormData);
       console.log("this is ", res);
-      onClose();  
+      onClose(); 
+      dispatch(fetchPosts()) 
     } catch (error) {
       console.error('Error adding new post:', error);
     }
@@ -64,7 +68,7 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
   
 
   return (
-    <div className="  w-full h-full bg-black bg-opacity-60 flex justify-center items-center z-[1000]">
+    <div className="  w-full h-96 bg-black bg-opacity-60 flex justify-center items-center z-[1000]">
       <div >
         <button onClick={onClose} className="absolute top-2 right-2 text-2xl text-gray-500 hover:text-red-500 transition-colors">
           &times;

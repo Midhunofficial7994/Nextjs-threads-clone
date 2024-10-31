@@ -154,22 +154,25 @@ const HomePage: React.FC = () => {
                             </div>
                             <p className="mb-2">{post.text}</p>
                             {post.image && <img src={post.image} alt="post" className="rounded mb-2 w-screen h-96" />}
-                            <div className="flex">
+                            <div className="flex mt-2">
                                 {currentUser ? (
+                                    <div className='mr-6'>
                                     <LikeButton
                                         initialLike={post.likes.length} 
                                         postId={post._id}
                                         userId={currentUser?._id}
                                         likedUsers={post.likes}
+                                       
                                     
                                     />
+                                    </div>
                                 ) : (
                                     <p>Please Login to Like the Post</p>
                                 )}
-                                <div onClick={() => { openComment(); setPostId(post._id); }}>
+                                <div className='mr-6'  onClick={() => { openComment(); setPostId(post._id); }}>
                                     <ReplyButton replyCount={post.replies.length} />
                                 </div>
-                                <div onClick={() => { setPostId(post._id); openRepost(); }}>
+                                <div  onClick={() => { setPostId(post._id); openRepost(); }}>
                                     <RepostButton repostCount={post.reposts.length} />
                                 </div>
                             </div>

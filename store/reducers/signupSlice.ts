@@ -35,7 +35,7 @@ export const signupUser = createAsyncThunk(
             console.log(response.data);
             return response.data;
         } catch (error: any) {
-            // Send backend error message as rejected value
+          
             return rejectWithValue(error.response.data.message);
         }
     }

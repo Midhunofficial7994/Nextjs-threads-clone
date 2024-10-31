@@ -7,8 +7,8 @@ import { Icons } from '../ui/Icons/users';
 const RepostButton: React.FC<repostButtonProps> = ({ repostCount }) => {
   return (
     <button>
-      <Icons.repost />
       <span>{repostCount}</span>
+      <Icons.repost />
     </button>
   );
 };
