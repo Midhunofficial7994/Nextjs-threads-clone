@@ -3,6 +3,11 @@ import PostBtn from '../postbutton/postBtn';
 import axiosInstance from '../../axios/axiosInstance';
 import { useAppDispatch } from '../../hooks/hooks/useAppDispatch';
 import { fetchPosts } from '../../store/reducers/postsSlice';
+import { IoImages } from 'react-icons/io5';
+import { MdOutlineGifBox } from 'react-icons/md';
+import { CiHashtag } from 'react-icons/ci';
+import { BiPoll } from 'react-icons/bi';
+import style from './style.module.css'
 
 interface ThreadsProps {
   isOpen: boolean;
@@ -14,10 +19,11 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
   const [postContent, setPostContent] = useState<string>('');
   const [postImage, setPostImage] = useState<any>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  const dispatch= useAppDispatch();
-
+  const dispatch = useAppDispatch();
   const handlePostSubmit = async () => {
     const userId = localStorage.getItem('userId');
+
+   
 
     if (postContent.trim() === '') {
       alert('Please write something before posting!');
@@ -34,10 +40,10 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
     newPostFormData.append('image', postImage);
 
     try {
-      const res = await axiosInstance.post('/posts', newPostFormData);
+      const res = await axiosInstance.post('/posts', newPostFormData);``
       console.log("this is ", res);
-      onClose(); 
-      dispatch(fetchPosts()) 
+      onClose();  
+      dispatch(fetchPosts())
     } catch (error) {
       console.error('Error adding new post:', error);
     }
@@ -51,7 +57,7 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
     setPostContent(event.target.value);
   };
 
-  const  handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setPostImage(file);
@@ -65,103 +71,53 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
 
   if (!isOpen) return null;
 
-  
-
   return (
-    <div className="  w-full h-96 bg-black bg-opacity-60 flex justify-center items-center z-[1000]">
-      <div >
-        <button onClick={onClose} className="absolute top-2 right-2 text-2xl text-gray-500 hover:text-red-500 transition-colors">
-          &times;
+    <div className={style["thread-overlay"]}>
+    <div className={style["thread-modal"]}>
+        <button onClick={onClose} className={style["thread-closeButton"]}>
+            &times;
         </button>
-        <div className="mt-4 text-gray-200">
-          {children}
-          <div className="flex flex-col gap-4 mt-8">
-            <textarea
-              placeholder="Write a post"
-              value={postContent}
-              onChange={handlePostChange}
-              className="bg-[#181818] p-4 rounded-lg shadow-sm text-base text-white resize-none outline-none"
-              rows={4}
-            />
-            {preview && (
-              <div className="w-full max-h-[300px] overflow-hidden rounded-md">
-                <img src={preview} alt="Preview" className=" object-cover rounded-md" />
-              </div>
-            )}
-            <div className="relative">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-              />
-              <label className="flex items-center text-gray-300 cursor-pointer hover:text-white">
-                <button >Upload Image</button>
-              </label>
+
+        <div className={style["thread-content"]}>
+            {children}
+            <div className={style["thread-thread"]}>
+                <textarea
+                    name="thread"
+                    id="thread"
+                    placeholder="Write a post"
+                    value={postContent}
+                    onChange={handlePostChange}
+                    className={style["thread-textarea"]}
+                />
+                {preview && (
+                    <div className={style["thread-image-preview-container"]}>
+                        <img src={preview} alt="Preview" className={style["thread-image-preview"]} />
+                    </div>
+                )}
+                <div className={style["thread-file-upload-container"]}>
+                    <input
+                        type="file"
+                        id="file-upload"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className={style["thread-file-input"]}
+                    />
+                    <label htmlFor="file-upload" className={style["thread-file-upload-label"]}>
+                        <IoImages className={style["thread-file-upload-label"]}/>
+                        <MdOutlineGifBox  className={style["thread-file-upload-label"]}/>
+                        <CiHashtag  className={style["thread-file-upload-label"]}/>
+                        <BiPoll  className={style["thread-file-upload-label"]}/>
+                    </label>
+                </div>
             </div>
-          </div>
-          <div className="mt-6 flex justify-end">
-            <PostBtn onClick={handlePostSubmit} />
-          </div>
+            <div className={style["thread-post-thread"]}>
+                <PostBtn onClick={handlePostSubmit} />
+            </div>
         </div>
-      </div>
-    </div>  
-  );
-};
-
-export default Threads;
+    </div>
+</div>
 
 
-// import React, { ReactNode } from 'react';
-
-// interface ThreadsProps {
-//   isOpen: boolean;
-//   onClose: () => void;
-//   children: ReactNode;
-// }
-
-// const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
-//   if (!isOpen) return null;
-
-//   return (
-//     // <div className="fixed inset-0 w-screen h-screen bg-black bg-opacity-60 flex justify-center items-center z-[1000]">
-//       <div className="bg-[#181818] p-8 w-[90%] max-w-[500px] rounded-lg shadow-lg relative animate-fadeIn">
-//         <button
-//           onClick={onClose}
-//           className="absolute top-2 right-2 text-2xl text-gray-500 hover:text-red-500 transition-colors"
-//         >
-//           &times;
-//         </button>
-//         <div className="mt-4 text-gray-200">{children}</div>
-//       </div>
-//     // </div>
-//   );
-// };
-
-// export default Threads;
-// import React, { ReactNode } from 'react';
-
-// interface ThreadsProps {
-//   isOpen: boolean;
-//   onClose: () => void;
-//   children: ReactNode;
-// }
-
-// const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
-//   if (!isOpen) return null;
-
-//   return (
-//     // <div className="fixed inset-0 w-screen h-screen bg-black bg-opacity-60 flex justify-center items-center z-[1000]">
-//       <div className="bg-[#181818] p-8 w-[90%] max-w-[500px] rounded-lg shadow-lg relative animate-fadeIn">
-//         <button
-//           onClick={onClose}
-//           className="absolute top-2 right-2 text-2xl text-gray-500 hover:text-red-500 transition-colors"
-//         >
-//           &times;
-//         </button>
-//         <div className="mt-4 text-gray-200">{children}</div>
-//       </div>
-//     // </div>
-//   );
-// };
-
-// export default Threads
+);
+}
+export default Threads
