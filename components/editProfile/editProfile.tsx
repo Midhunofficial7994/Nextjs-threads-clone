@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-
+import style from './style.module.css'
 import axiosInstance from '../../axios/axiosInstance';
+import { BsPersonFillAdd } from 'react-icons/bs';
 
 interface EditProfileProps {
     isOpen: boolean;
@@ -78,83 +79,76 @@ const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
     if (!isOpen) return null
 
     return (
-        <div className="fixed inset-0 bg-[#181818] bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-neutral-900 p-8 rounded-lg max-w-md w-full relative">
-                <button 
-                    onClick={onClose} 
-                    className="absolute top-4 right-4 text-gray-500 hover:text-gray-300 text-2xl border-none bg-transparent cursor-pointer"
-                >
+        <div className={style["EP-overlay"]}>
+            <div className={style["EP-container"]}>
+                <button onClick={onClose} className={style["EP-close-btn"]}>
                     ✕
                 </button>
 
-                <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-                    <div className="flex flex-col">
-                        <label htmlFor="name" className="text-sm text-gray-500 mb-2">Name</label>
+                <form className={style["EP-form"]} onSubmit={handleSubmit}>
+                    <div className={style["EP-form-group"]}>
+                        <label htmlFor="name" className={style['label']}>Name</label>
                         <input
                             type="text"
                             id="name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="p-3 rounded bg-black text-white w-full border-none"
+                            className={style['input']}
                         />
-                        <div className="mt-4">
+
+                        <div className={style["EP-profile-pic-container"]}>
+                            <button onClick={handleImageUpload}>
+                                <BsPersonFillAdd size={24} />
+                            </button>
                             <input
                                 type="file"
                                 ref={fileInputRef}
                                 onChange={handleFileChange}
-                                className="hidden"
-                                accept="image/*"
+                                style={{ display: 'none' }}
+                                className={style['input']}
                             />
                             {previewImage && (
-                                <div className="mt-2">
-                                    <img 
-                                        src={previewImage} 
-                                        alt="Profile Preview" 
-                                        className="w-12 h-12 rounded-full object-cover cursor-pointer"
-                                        onClick={() => fileInputRef.current?.click()} 
-                                    />
+                                <div className={style["EP-image-preview"]}>
+                                    <img src={previewImage} alt="Profile Preview" className={style['EP-img']}/>
                                 </div>
                             )}
+
                         </div>
                     </div>
-
-                    <div className="flex flex-col">
-                        <label htmlFor="username" className="text-sm text-gray-500 mb-2">Username</label>
+                    <div className={style["EP-form-group"]}>
+                        <label htmlFor="username" className={style['label']}>Username</label>
                         <input
                             type="text"
                             id="username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            className="p-3 rounded bg-black text-white w-full border-none"
+                            className={style['input']}
                         />
                     </div>
 
-                    <div className="flex flex-col">
-                        <label htmlFor="bio" className="text-sm text-gray-500 mb-2">Bio</label>
+                    <div className={style["EP-form-group"]}>
+                        <label htmlFor="bio" className={style['label']}>Bio</label>
                         <input
                             type="text"
                             id="bio"
                             value={bio}
                             onChange={(e) => setBio(e.target.value)}
-                            className="p-3 rounded bg-black text-white w-full border-none"
+                            className={style['input']}
                         />
                     </div>
 
-                    <div className="flex flex-col">
-                        <label htmlFor="email" className="text-sm text-gray-500 mb-2">Email</label>
+                    <div className={style["EP-form-group"]}>
+                        <label htmlFor="email" className={style['label']}>Email</label>
                         <input
                             type="email"
                             id="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="p-3 rounded bg-black text-white w-full border-none"
+                            className={style['input']}
                         />
                     </div>
 
-                    <button 
-                        type="submit" 
-                        className="bg-gray-600 text-black p-3 rounded text-base cursor-pointer hover:bg-gray-200  transition-colors mt-4"
-                    >
+                    <button type="submit" className={style["EP-submit-btn"]}>
                         Done
                     </button>
                 </form>
@@ -162,5 +156,4 @@ const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
         </div>
     );
 };
-
 export default EditProfile;

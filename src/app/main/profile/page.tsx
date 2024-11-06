@@ -1,18 +1,16 @@
 "use client"
-import { useAppDispatch } from '../../../../hooks/hooks/useAppDispatch'
-import axiosInstance from '../../../../axios/axiosInstance'
-import React, { useEffect, useState } from 'react'
-import styles from "./style.module.css"
-import ProfileImage from '../../../../components/ProfileImage'
-import TimeAgo from '../../../../components/TimeAgo'
-import LikeButton from '../../../../components/likeButton'
-import Reply from '../../../../components/reply/reply'
-import Repost from '../../../../components/repost/repost'
+import { useAppDispatch } from '../../../../hooks/hooks/useAppDispatch';
+import axiosInstance from '../../../../axios/axiosInstance';
+import React, { useEffect, useState } from 'react';
+import ProfileImage from '../../../../components/ProfileImage';
+import TimeAgo from '../../../../components/TimeAgo';
+import LikeButton from '../../../../components/likeButton';
+import ReplyButton from '../../../../components/replyButton';
+import Repost from '../../../../components/repost/repost';
 import { MdDelete } from "react-icons/md";
-import RepostButton from '../../../../components/repostButton'
-import ReplyButton from '../../../../components/replyButton'
+import RepostButton from '../../../../components/repostButton';
 
-const page = () => {
+const Page = () => {
     const dispatch = useAppDispatch();
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -29,7 +27,7 @@ const page = () => {
         replies: Reply[];
         likes: string[];
         reposts: string[];
-        postById:string
+        postById: string;
     };
 
     type Reply = {
@@ -68,67 +66,48 @@ const page = () => {
     const toggleDropdown = (postId: string) => {
         setSelectedPostId(selectedPostId === postId ? null : postId);
     };
+
     return (
-        <>
-            <div className="flex items-center justify-center h-screen mt-20">
-                <div className="h-auto w-6/12 bg-[#181818] rounded-3xl mt-auto">
-                    <div className={styles['post-list']}>
-                        {posts.map((post) => (
-                            <div key={post._id} className={styles['post-item']}>
-                                <div className={styles['post-user']}>
-                                    <ProfileImage
-                                        profilePic={post.userProfilePic}
-                                        altText="Profile"
-                                        className={styles['profile-image']}
-                                    />
-                                    <div className={styles['post-time']}>
-                                        <h3>{post.username}falcon</h3>
-                                        <TimeAgo dateString={post.createdOn} />
-                                    </div>
-                                    <div className={styles['menu-container']}>
-                                        <MdDelete className={styles['delete']} onClick={() => toggleDropdown(post._id)} />
-                                        {selectedPostId === post._id && (
-                                            <div className={styles['delete-text']}>
-                                                <button onClick={() => deletePost(post._id)}>Delete</button>
-                                            </div>
-                                        )}
-                                    </div>
+        <div className="flex items-center justify-center h-screen mt-20">
+            <div className="w-6/12 bg-[#181818] rounded-3xl mt-auto">
+                <div className="flex flex-col gap-10 p-4">
+                    {posts.map((post) => (
+                        <div key={post._id} className="flex flex-col">
+                            <div className="flex items-center mt-6">
+                                <ProfileImage
+                                    profilePic={post.userProfilePic}
+                                    altText="Profile"
+                                    className="w-12 h-12 object-cover rounded-full ml-8"
+                                />
+                                <div className="ml-4">
+                                    <h3 className="text-white">{post.username}</h3>
+                                    <TimeAgo dateString={post.createdOn} />
                                 </div>
-                                <p className={styles['post-text']}>{post.text}</p>
-                                {post.image && <img src={post.image} alt="post" className={styles['post-image']} />}
-                                <div className={styles['post-actions-container']}>\
-                                    <div className={styles['like']}>
-                                        <LikeButton
-                                            initialLike={post.likes.length}
-                                            postId={post._id}
-                                            
-                                            likedUsers={post.likes}
-                                        />
-                                    </div>
-                                    <div className={styles['comment']}>
-                                        <ReplyButton
-                                            replyCount={post.replies.length}
-                                            // openComment={() => setSelectedPostId(post._id)}
-                                            // postId={post._id}
-                                            // setPostId={setSelectedPostId}
-                                        />
-                                    </div>
-                                    <div className={styles['repost']}>
-                                        <RepostButton
-                                            repostCount={post.reposts.length}
-                                            // postId={post._id}
-                                            // setPostId={setSelectedPostId}
-                                            // opernRepost={() => setSelectedPostId(post._id)}
-                                        />
-                                    </div>
+                                <div className="ml-auto">
+                                    <MdDelete className="text-white text-2xl" onClick={() => toggleDropdown(post._id)} />
+                                    {selectedPostId === post._id && (
+                                        <button className="text-white text-sm ml-4" onClick={() => deletePost(post._id)}>Delete</button>
+                                    )}
                                 </div>
                             </div>
-                        ))}
-                    </div>
+                            <p className="text-left text-gray-300 ml-8 mt-1">{post.text}</p>
+                            {post.image && <img src={post.image} alt="post" className="w-1/2 h-auto mx-8 mt-3 rounded-lg" />}
+                            <div className="flex items-center justify-between ml-8 mt-3">
+                                <LikeButton
+                                    initialLike={post.likes.length}
+                                    postId={post._id}
+                                  
+                                    likedUsers={post.likes}
+                                />
+                                <ReplyButton replyCount={post.replies.length} />
+                                <RepostButton repostCount={post.reposts.length} />
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 
-export default page
+export default Page;

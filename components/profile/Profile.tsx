@@ -1,105 +1,92 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import ProfileImage from '../ProfileImage';
 import Link from 'next/link';
 import { useAppDispatch,useAppSelector } from '../../hooks/hooks/useAppDispatch';
 import { fetchUser } from '../../store/reducers/userSlice';
+import ProfileImage from '../ProfileImage';
 import EditProfile from '../editProfile/editProfile';
 
-
 const Profile = () => {
-    const dispatch = useAppDispatch();
-    const { users } = useAppSelector((state) => state.users);
-    const [name, setName] = useState<string>('');
-    const [username, setUserName] = useState<string>('');
-    const [profilePic, setProfilePic] = useState<string>('');
-    const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
-    const [userBio, setUserBio] = useState<string>('');
+  const dispatch = useAppDispatch();
+  const { users } = useAppSelector((state) => state.users);
 
-    useEffect(() => {
-        dispatch(fetchUser());
-    }, [dispatch]);
+  const [name, setName] = useState<string>('');
+  const [username, setUserName] = useState<string>('');
+  const [profilePic, setProfilePic] = useState<string>('');
+  const [followers, setFollowers] = useState<string>(''); // Corrected followers state initialization
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+  const [userBio, setUserBio] = useState<string>('');
 
-    useEffect(() => {
-        const userId = localStorage.getItem('userId');
-        if (userId && users.length > 0) {
-            const user = users.find((user) => user._id === userId);
-            if (user) {
-                setName(user.name || '');
-                setUserName(user.username || '');
-                setProfilePic(user.profilePic || '');
-                setUserBio(user.bio || '');
-            }
-        }
-    }, [users]);
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
 
-    const handleEditProfileOpen = () => {
-        setIsEditModalOpen(true);
-    };
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    if (userId && users.length > 0) {
+      const user = users.find((user) => user._id === userId);
+      if (user) {
+        setName(user.name || '');
+        setUserName(user.username || '');
+        setProfilePic(user.profilePic || '');
+        setUserBio(user.bio || '');      }
+    }
+  }, [users]);
 
-    const handleEditProfileClose = () => {
-        setIsEditModalOpen(false);
-    };
+  const handleEditProfileOpen = () => {
+    setIsEditModalOpen(true);
+  };
 
-    return (
-        <div className="w-full bg-transparent">
-            <EditProfile isOpen={isEditModalOpen} onClose={handleEditProfileClose} />
-            
-            <h1 className="h-[60px] flex items-center justify-center text-white text-xl bg-transparent z-[1000]">
-                Profile
-            </h1>
+  const handleEditProfileClose = () => {
+    setIsEditModalOpen(false);
+  };
 
-            <div className="bg-[#181818] rounded-2xl h-full">
-              
-                <div className="flex justify-between items-center h-[140px] w-full p-5">
-                    <div className="text-white">
-                        <h1 className="text-xl font-semibold">{name}</h1>
-                        <span className="text-gray-400 mt-2">{username}</span>
-                        <p className="text-gray-300 mt-3">
-                            {userBio}  
-                        </p>
-                    </div>
-                    <div className="w-[80px] h-[80px] mr-2.5">
-                        <ProfileImage
-                            altText="Profile"
-                            profilePic={profilePic}
-                            className="w-8 h-8  rounded-full"
-                        />
-                    </div>
-                </div>
+  return (
+    <>
+      <nav className="fixed w-full flex items-center justify-center bg-[#101010] py-2">
+        <h1 className="text-[#F3F5F7] text-center text-lg font-bold">For you</h1>
+      </nav>
+      <div className="flex items-center justify-center h-96 mt-12">
+        <div className="w-6/12 h-full bg-[#181818] rounded-3xl">
+          <EditProfile isOpen={isEditModalOpen} onClose={handleEditProfileClose} />
+          <div className="bg-[#181818] rounded-lg h-full p-4">
+            <div className="text-white mt-16">
+              <h1 className="text-[#F3F5F7] text-2xl ml-8">{name}</h1>
+              <span className="text-[#F3F5F7] text-base ml-8">{username}</span>
 
-             
-                <div className="bg-[#181818] px-4">
-                    
-                        <div  className="border border-gray-600 rounded-2xl p-2.5 cursor-pointer hover:bg-gray-100  hover:text-black transition-colors text-center text-white w"
-                        onClick={handleEditProfileOpen}>
-                        Edit Profile
-                        </div>
-                </div>
-
-                {/* <div className="flex justify-between items-center p-5">
-                    <Link 
-                        href={'/main/UserProfile/threads'} 
-                        className="text-white hover:text-gray-300 transition-colors"
-                    >
-                        Threads
-                    </Link>
-                    <Link 
-                        href={'/main/UserProfile/reply'}
-                        className="text-white hover:text-gray-300 transition-colors"
-                    >
-                        Replies
-                    </Link>
-                    <Link 
-                        href={'/main/UserProfile/repost'}
-                        className="text-white hover:text-gray-300 transition-colors"
-                    >
-                        Reposts
-                    </Link>
-                </div> */}
+              <p className="ml-8 mt-2">{userBio}</p>
+              <p className="text-gray-500 ml-8">{followers} followers</p>
             </div>
+
+            <div className="flex justify-center mt-[-50px] mb-4">
+              <ProfileImage
+                altText="Profile"
+                profilePic={profilePic}
+                className="w-20 h-20 object-cover rounded-full"
+              />
+            </div>
+
+            <div className="flex justify-center">
+              <div
+                className="bg-transparent border-2 border-[#1E1E1E] rounded-lg py-1 px-4 cursor-pointer text-[#F3F5F7] font-semibold text-center"
+                onClick={handleEditProfileOpen}
+              >
+                Edit profile
+              </div>
+            </div>
+
+            <div className="flex justify-between text-[#F3F5F7] font-semibold text-lg mt-4">
+              <Link href={'/main/Profile/Mprofile'} className="border-b-3 border-gray-800 px-8 py-2 hover:border-white">
+                Threads
+              </Link>
+              <div className="border-b-3 border-gray-800 px-8 py-2 hover:border-white">Replies</div>
+              <div className="border-b-3 border-gray-800 px-8 py-2 hover:border-white">Reposts</div>
+            </div>
+          </div>
         </div>
-    );
+      </div>
+    </>
+  );
 };
 
 export default Profile;

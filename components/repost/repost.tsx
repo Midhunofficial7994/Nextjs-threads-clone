@@ -22,7 +22,7 @@ const Repost: React.FC<RepostProps> = ({ isOpen, onClose, postId, userProfilePic
             userId,
             userProfilePic,
             username,
-        };
+        };     
 
         try {
             const response = await axiosInstance.post(`/posts/repost/${postId}`, repost);
